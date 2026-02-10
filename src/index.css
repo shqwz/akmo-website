@@ -1,0 +1,101 @@
+/* Dark theme – тёплые тёмные тона, светлое дерево на фото выделяется */
+:root {
+  /* Фоны: не чисто чёрный, тёплый серо-коричневый */
+  --color-bg: #1A1816;
+  --color-bg-cream: #242120;
+  --color-bg-card: #2A2725;
+  --color-bg-hero: #1A1816;
+  --color-bg-footer: #141210;
+  --color-bg-documents: #1E1C1A;
+  --color-bg-about: #1C1A18;
+  --color-bg-feedback: #181614;
+
+  /* Акцент: приглушённый золотисто-деревянный, гармонирует с деревом */
+  --color-accent: #C9A66B;
+  --color-accent-dark: #B8956A;
+
+  /* Текст: светлый для контраста на тёмном */
+  --color-text: #FAFAF9;
+  --color-text-secondary: #D6D3D1;
+  --color-text-muted: #A8A29E;
+
+  /* Рамки и тени */
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-shadow: rgba(0, 0, 0, 0.4);
+
+  /* Typography */
+  font-family: 'Source Sans 3', system-ui, sans-serif;
+  line-height: 1.6;
+  font-weight: 400;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--color-accent-dark);
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* Headings – serif for wood feel */
+h1, h2, h3 {
+  font-family: 'Lora', Georgia, serif;
+  line-height: 1.2;
+}
+
+/* Skip link for accessibility */
+.skipLink {
+  position: absolute;
+  top: -100px;
+  left: 1rem;
+  padding: 0.75rem 1.25rem;
+  background: var(--color-accent);
+  color: var(--color-bg);
+  font-weight: 500;
+  border-radius: 8px;
+  z-index: 200;
+  transition: top 0.2s;
+}
+
+.skipLink:focus {
+  top: 1rem;
+  outline: 2px solid var(--color-text);
+  outline-offset: 2px;
+}

@@ -1,0 +1,86 @@
+import { useState } from 'react'
+import { motion } from 'framer-motion'
+import { products } from '@/shared/data/products'
+import Card from '@/shared/ui/Card/Card'
+import ProductImage from '@/shared/ui/ProductImage/ProductImage'
+import ProductModal from '@/shared/ui/ProductModal/ProductModal'
+import styles from './Products.module.css'
+
+const sectionVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      staggerChildren: 0.08,
+      delayChildren: 0.1,
+    },
+  },
+}
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] } },
+}
+
+export default function Products() {
+  const [selectedProduct, setSelectedProduct] = useState(null)
+
+  return (
+    <motion.section
+      id="products"
+      className={styles.section}
+      aria-labelledby="products-heading"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: '-60px' }}
+      variants={sectionVariants}
+    >
+      <div className={styles.container}>
+        <motion.h2 id="products-heading" className={styles.heading} variants={cardVariants}>Наша продукция</motion.h2>
+        <motion.p className={styles.lead} variants={cardVariants}>
+          Изготавливаем мебель и изделия из дерева на заказ. Каждое изделие — индивидуально.
+        </motion.p>
+        <ul className={styles.grid}>
+          {products.map((product) => (
+            <motion.li key={product.id} variants={cardVariants}>
+              <div
+                className={styles.cardWrap}
+                onClick={() => setSelectedProduct(product)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault()
+                    setSelectedProduct(product)
+                  }
+                }}
+                role="button"
+                tabIndex={0}
+              >
+                <Card className={styles.card}>
+                <div className={styles.imageWrap}>
+                  <ProductImage
+                    src={product.image}
+                    alt={product.name}
+                    loading="lazy"
+                    width={400}
+                    height={280}
+                  />
+                </div>
+                <div className={styles.cardBody}>
+                  <h3 className={styles.cardTitle}>{product.name}</h3>
+                  <p className={styles.cardDesc}>{product.description}</p>
+                  <span className={styles.more}>Подробнее и цена →</span>
+                </div>
+              </Card>
+              </div>
+            </motion.li>
+          ))}
+        </ul>
+      </div>
+      <ProductModal
+        product={selectedProduct}
+        onClose={() => setSelectedProduct(null)}
+      />
+    </motion.section>
+  )
+}

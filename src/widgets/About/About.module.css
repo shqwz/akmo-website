@@ -1,0 +1,113 @@
+.section {
+  padding: 4rem 1.5rem;
+  background-color: var(--color-bg-about);
+}
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.heading {
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  font-weight: 700;
+  color: var(--color-text);
+  text-align: center;
+  margin: 0 0 1.5rem;
+}
+
+/* Обёртка на всю ширину экрана: один отступ от левого края = отступ между фото и текстом */
+.rowWrapper {
+  --about-gap: 1.5rem;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  padding-left: var(--about-gap);
+  padding-right: var(--about-gap);
+  box-sizing: border-box;
+}
+
+@media (min-width: 720px) {
+  .rowWrapper {
+    --about-gap: 5rem;
+  }
+}
+
+.row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--about-gap);
+  align-items: stretch;
+}
+
+@media (min-width: 720px) {
+  .row {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+}
+
+.photosWrap {
+  flex-shrink: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+@media (min-width: 720px) {
+  .photosWrap {
+    width: 380px;
+    max-width: none;
+    margin: 0;
+  }
+}
+
+.photo {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--color-bg-card);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  aspect-ratio: 2 / 1;
+}
+
+.photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.content {
+  min-width: 0;
+}
+
+.aboutText {
+  font-size: 1.0625rem;
+  color: var(--color-text-secondary);
+  line-height: 1.65;
+  text-align: left;
+}
+
+.aboutText p {
+  margin: 0 0 1rem;
+}
+
+.aboutText p:last-of-type {
+  margin-bottom: 0;
+}
+
+.aboutList {
+  margin: 0 0 1rem;
+  padding-left: 1.25rem;
+}
+
+.aboutList li {
+  margin-bottom: 0.5rem;
+}
+
+.aboutList li:last-child {
+  margin-bottom: 0;
+}
