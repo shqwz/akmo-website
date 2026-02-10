@@ -39,3 +39,4 @@ npm run dev
 ## Обратная связь
 
 Форма отправки — заглушка (`src/features/feedback/submitFeedback.js`). Для реальной отправки замените вызов на запрос к вашему API.
+# akmo-site
