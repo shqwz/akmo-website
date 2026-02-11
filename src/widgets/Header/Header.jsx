@@ -27,9 +27,12 @@ export default function Header() {
   return (
     <header className={`${styles.header} ${scrolled ? styles.scrolled : ''}`} role="banner">
       <div className={styles.inner}>
-        <a href="#" onClick={(e) => { e.preventDefault(); handleNav(''); }} className={styles.logo}>
-          AKMO
-        </a>
+        <div className={styles.logoOval}>
+          <a href="#" onClick={(e) => { e.preventDefault(); handleNav(''); }} className={styles.logo}>
+            AKMO
+          </a>
+        </div>
+        <div className={styles.navOval}>
         <nav className={styles.nav} aria-label="Основная навигация">
           <ul className={styles.navList}>
             {NAV_LINKS.map(({ id, label }) => (
@@ -45,6 +48,7 @@ export default function Header() {
             ))}
           </ul>
         </nav>
+        </div>
       </div>
     </header>
   )
