@@ -52,6 +52,12 @@
   color: #b54a4a;
 }
 
+.submitError {
+  font-size: 0.9rem;
+  color: #b54a4a;
+  margin: 0;
+}
+
 .success {
   padding: 1.5rem;
   background-color: rgba(201, 166, 107, 0.12);

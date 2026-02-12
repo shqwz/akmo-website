@@ -9,6 +9,7 @@ import styles from './FeedbackForm.module.css'
 
 export default function FeedbackForm() {
   const [submitted, setSubmitted] = useState(false)
+  const [submitError, setSubmitError] = useState(null)
   const {
     register,
     handleSubmit,
@@ -20,10 +21,13 @@ export default function FeedbackForm() {
   })
 
   const onSubmit = async (data) => {
+    setSubmitError(null)
     const result = await submitFeedback(data)
     if (result.success) {
       reset()
       setSubmitted(true)
+    } else {
+      setSubmitError(result.error || 'Не удалось отправить')
     }
   }
 
@@ -66,6 +70,11 @@ export default function FeedbackForm() {
           <span className={styles.error} role="alert">{errors.message.message}</span>
         )}
       </div>
+      {submitError && (
+        <p className={styles.submitError} role="alert">
+          {submitError}
+        </p>
+      )}
       <Button type="submit" disabled={isSubmitting}>
         {isSubmitting ? 'Отправка...' : 'Отправить'}
       </Button>

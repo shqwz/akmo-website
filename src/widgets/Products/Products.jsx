@@ -1,9 +1,11 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { products } from '@/shared/data/products'
+import { priceDoorRows, priceMshRows } from '@/shared/data/xlsxData'
 import Card from '@/shared/ui/Card/Card'
 import ProductImage from '@/shared/ui/ProductImage/ProductImage'
 import ProductModal from '@/shared/ui/ProductModal/ProductModal'
+import TableModal from '@/shared/ui/TableModal/TableModal'
 import styles from './Products.module.css'
 
 const sectionVariants = {
@@ -25,6 +27,15 @@ const cardVariants = {
 
 export default function Products() {
   const [selectedProduct, setSelectedProduct] = useState(null)
+  const [priceTable, setPriceTable] = useState(null)
+
+  const handleOpenPriceTable = (product) => {
+    if (product.priceTable === 'door') {
+      setPriceTable({ title: 'Цены на жалюзийные дверки', rows: priceDoorRows })
+    } else if (product.priceTable === 'msh') {
+      setPriceTable({ title: 'Цены на мебельный щит', rows: priceMshRows })
+    }
+  }
 
   return (
     <motion.section
@@ -80,6 +91,12 @@ export default function Products() {
       <ProductModal
         product={selectedProduct}
         onClose={() => setSelectedProduct(null)}
+        onOpenPriceTable={handleOpenPriceTable}
+      />
+      <TableModal
+        title={priceTable?.title ?? null}
+        rows={priceTable?.rows ?? []}
+        onClose={() => setPriceTable(null)}
       />
     </motion.section>
   )

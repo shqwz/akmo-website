@@ -66,7 +66,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-bottom: 0.2em;
+  padding: 0;
+  transform: translateY(1px);
 }
 
 .close:hover {
@@ -79,7 +80,7 @@
 }
 
 .imageWrap {
-  flex: 0 0 38%;
+  flex: 0 0 46%;
   min-width: 0;
   background: var(--color-bg-cream);
   overflow: hidden;
@@ -130,20 +131,85 @@
   font-size: 1rem;
   color: var(--color-text-secondary);
   line-height: 1.5;
-  margin: 0 0 1.25rem;
+  margin: 0 0 1rem;
   flex: 1;
+}
+
+.detailsParagraph {
+  margin: 0 0 0.5rem;
   white-space: pre-line;
 }
 
-.price {
-  font-size: 1.15rem;
-  font-weight: 600;
-  color: var(--color-accent);
+.detailsParagraph:last-child {
+  margin-bottom: 0;
+}
+
+.detailsBlock {
+  margin-bottom: 0.5rem;
+}
+
+.detailsBlock:last-child {
+  margin-bottom: 0;
+}
+
+.detailsList {
+  margin: 0.25rem 0 0.5rem 1.25rem;
+  padding-left: 0.5rem;
+  list-style: disc;
+}
+
+.detailsList li {
+  margin-bottom: 0.2rem;
+}
+
+.priceOvalWrap {
+  display: inline-block;
+  width: fit-content;
   margin: 0 0 1.25rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  border: none;
+  background-color: var(--color-accent);
+  transition: background-color 0.25s ease, transform 0.2s ease;
+}
+
+.priceOvalWrap:hover {
+  background-color: var(--color-accent-dark);
+  transform: translateY(-1px);
+}
+
+.priceOvalWrapStatic {
+  cursor: default;
+}
+
+.priceOvalWrapStatic:hover {
+  background-color: var(--color-accent);
+  transform: none;
+}
+
+.price {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--color-bg);
+  margin: 0;
 }
 
 .priceLabel {
   font-weight: 500;
-  color: var(--color-text-secondary);
+  color: var(--color-bg);
   margin-right: 0.35rem;
+}
+
+.priceButton {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  font-weight: 500;
+  color: var(--color-bg);
+  cursor: pointer;
+}
+
+.priceButton:hover {
+  color: var(--color-bg);
 }

@@ -13,3 +13,6 @@ function trimSpecificationRows(rows) {
 
 export const defectsRows = filterEmptyRows(raw.defects || [])
 export const specificationRows = trimSpecificationRows(raw.specification ?? [])
+/** Пустые строки не фильтруем — используются для разделения блоков в таблице */
+export const priceDoorRows = raw.priceDoor || []
+export const priceMshRows = raw.priceMsh || []

@@ -2,6 +2,25 @@ import { useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import styles from './TableModal.module.css'
 
+function trimEmptyTrailingColumns(rows) {
+  if (!rows?.length) return rows
+  const maxCols = Math.max(...rows.map((r) => r.length))
+  if (maxCols <= 0) return rows
+  let lastUsedCol = -1
+  for (let c = 0; c < maxCols; c++) {
+    const hasData = rows.some(
+      (row) =>
+        row[c] !== null &&
+        row[c] !== undefined &&
+        String(row[c]).trim() !== ''
+    )
+    if (hasData) lastUsedCol = c
+  }
+  const colCount = lastUsedCol + 1
+  if (colCount >= maxCols) return rows
+  return rows.map((row) => row.slice(0, colCount))
+}
+
 export default function TableModal({ title, rows, onClose }) {
   useEffect(() => {
     const handleEscape = (e) => {
@@ -25,8 +44,18 @@ export default function TableModal({ title, rows, onClose }) {
     if (e.target === e.currentTarget) onClose()
   }
 
-  const headerRow = rows[0] || []
-  const bodyRows = rows.slice(1)
+  const trimmed = trimEmptyTrailingColumns(rows)
+  const headerRow = trimmed[0] || []
+  const bodyRows = trimmed.slice(1)
+
+  const isRowEmpty = (row) =>
+    !row?.length ||
+    !row.some(
+      (cell) =>
+        cell !== null &&
+        cell !== undefined &&
+        String(cell).trim() !== ''
+    )
 
   return createPortal(
     <div
@@ -56,7 +85,10 @@ export default function TableModal({ title, rows, onClose }) {
             </thead>
             <tbody>
               {bodyRows.map((row, ri) => (
-                <tr key={ri}>
+                <tr
+                  key={ri}
+                  className={isRowEmpty(row) ? styles.rowEmpty : undefined}
+                >
                   {headerRow.map((_, ci) => (
                     <td key={ci}>{String(row[ci] ?? '')}</td>
                   ))}
