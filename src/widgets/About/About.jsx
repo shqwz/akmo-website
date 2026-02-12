@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { motion } from 'framer-motion' // eslint-disable-line no-unused-vars -- used as motion.section, motion.div
 import styles from './About.module.css'
 
 const ABOUT_PHOTOS = [

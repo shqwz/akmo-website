@@ -1,7 +1,9 @@
+import { useId } from 'react'
 import styles from './Input.module.css'
 
 export default function Input({ label, error, id, className = '', ...props }) {
-  const inputId = id || `input-${label?.toLowerCase().replace(/\s/g, '-') || Math.random().toString(36).slice(2)}`
+  const generatedId = useId()
+  const inputId = id ?? (label ? `input-${label.toLowerCase().replace(/\s/g, '-')}` : generatedId)
   return (
     <div className={`${styles.wrapper} ${className}`.trim()}>
       {label && (

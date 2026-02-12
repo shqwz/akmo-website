@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { motion } from 'framer-motion' // eslint-disable-line no-unused-vars -- used as motion.* in JSX
 import { useScrollTo } from '@/shared/hooks/useScrollTo'
 import Button from '@/shared/ui/Button/Button'
 import styles from './Hero.module.css'

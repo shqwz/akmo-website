@@ -6,16 +6,40 @@ import styles from './ProductModal.module.css'
 export default function ProductModal({ product, onClose, onOpenPriceTable }) {
   useEffect(() => {
     if (!product) {
+      document.documentElement.style.overflow = ''
       document.body.style.overflow = ''
+      document.body.style.position = ''
+      document.body.style.top = ''
+      document.body.style.width = ''
+      if (typeof document.body.dataset.modalScrollY !== 'undefined') {
+        window.scrollTo(0, Number(document.body.dataset.modalScrollY))
+        delete document.body.dataset.modalScrollY
+      }
       return
     }
+    const scrollY = window.scrollY
+    document.body.dataset.modalScrollY = String(scrollY)
+    document.documentElement.style.overflow = 'hidden'
+    document.body.style.overflow = 'hidden'
+    document.body.style.position = 'fixed'
+    document.body.style.top = `-${scrollY}px`
+    document.body.style.width = '100%'
+
     const handleEscape = (e) => {
       if (e.key === 'Escape') onClose()
     }
-    document.body.style.overflow = 'hidden'
     document.addEventListener('keydown', handleEscape)
     return () => {
+      document.documentElement.style.overflow = ''
       document.body.style.overflow = ''
+      document.body.style.position = ''
+      document.body.style.top = ''
+      document.body.style.width = ''
+      const savedY = document.body.dataset.modalScrollY
+      if (savedY !== undefined) {
+        window.scrollTo(0, Number(savedY))
+        delete document.body.dataset.modalScrollY
+      }
       document.removeEventListener('keydown', handleEscape)
     }
   }, [product, onClose])
@@ -82,28 +106,23 @@ export default function ProductModal({ product, onClose, onOpenPriceTable }) {
                 })
               })()}
             </div>
-            <div
-              className={
-                product.priceTable && onOpenPriceTable
-                  ? styles.priceOvalWrap
-                  : `${styles.priceOvalWrap} ${styles.priceOvalWrapStatic}`
-              }
-            >
-              <p className={styles.price}>
-                <span className={styles.priceLabel}>Цена:</span>{' '}
-                {product.priceTable && onOpenPriceTable ? (
-                  <button
-                    type="button"
-                    className={styles.priceButton}
-                    onClick={() => onOpenPriceTable(product)}
-                  >
-                    {product.price}
-                  </button>
-                ) : (
-                  product.price
-                )}
-              </p>
-            </div>
+            {product.priceTable && onOpenPriceTable ? (
+              <button
+                type="button"
+                className={styles.priceOvalWrap}
+                onClick={() => onOpenPriceTable(product)}
+              >
+                <p className={styles.price}>
+                  <span className={styles.priceLabel}>Цена:</span> {product.price}
+                </p>
+              </button>
+            ) : (
+              <div className={`${styles.priceOvalWrap} ${styles.priceOvalWrapStatic}`}>
+                <p className={styles.price}>
+                  <span className={styles.priceLabel}>Цена:</span> {product.price}
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </div>

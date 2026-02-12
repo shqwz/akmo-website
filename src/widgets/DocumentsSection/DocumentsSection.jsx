@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion } from 'framer-motion' // eslint-disable-line no-unused-vars -- used as motion.* in JSX
 import { defectsRows, specificationRows } from '@/shared/data/xlsxData'
 import Button from '@/shared/ui/Button/Button'
 import TableModal from '@/shared/ui/TableModal/TableModal'

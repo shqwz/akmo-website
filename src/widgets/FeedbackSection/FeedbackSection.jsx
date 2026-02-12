@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { motion } from 'framer-motion' // eslint-disable-line no-unused-vars -- used as motion.* in JSX
 import FeedbackForm from '@/features/feedback/FeedbackForm'
 import styles from './FeedbackSection.module.css'
 

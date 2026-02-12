@@ -11,6 +11,7 @@
     "update-xlsx": "node scripts/read-xlsx.js"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "@hookform/resolvers": "^5.2.2",
     "framer-motion": "^12.34.0",
     "react": "^19.2.0",

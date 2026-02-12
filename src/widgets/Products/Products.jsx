@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { useState, useRef, useEffect } from 'react'
+import { motion } from 'framer-motion' // eslint-disable-line no-unused-vars -- used as motion.* in JSX
 import { products } from '@/shared/data/products'
 import { priceDoorRows, priceMshRows } from '@/shared/data/xlsxData'
 import Card from '@/shared/ui/Card/Card'
@@ -25,9 +25,29 @@ const cardVariants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] } },
 }
 
+const CARD_OPEN_DELAY_MS = 150
+
 export default function Products() {
   const [selectedProduct, setSelectedProduct] = useState(null)
   const [priceTable, setPriceTable] = useState(null)
+  const openTimeoutRef = useRef(null)
+
+  useEffect(() => {
+    return () => {
+      if (openTimeoutRef.current) clearTimeout(openTimeoutRef.current)
+    }
+  }, [])
+
+  const handleCardClick = (product) => {
+    if (openTimeoutRef.current) clearTimeout(openTimeoutRef.current)
+    const imgSrc = product.imageDetail || product.image
+    const img = new Image()
+    img.src = imgSrc
+    openTimeoutRef.current = setTimeout(() => {
+      openTimeoutRef.current = null
+      setSelectedProduct(product)
+    }, CARD_OPEN_DELAY_MS)
+  }
 
   const handleOpenPriceTable = (product) => {
     if (product.priceTable === 'door') {
@@ -57,11 +77,11 @@ export default function Products() {
             <motion.li key={product.id} variants={cardVariants}>
               <div
                 className={styles.cardWrap}
-                onClick={() => setSelectedProduct(product)}
+                onClick={() => handleCardClick(product)}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault()
-                    setSelectedProduct(product)
+                    handleCardClick(product)
                   }
                 }}
                 role="button"

@@ -1,33 +1,40 @@
 /**
- * Отправка формы обратной связи через Formspree.
- * Form ID задаётся в .env: VITE_FORMSPREE_FORM_ID=ваш_id
+ * Отправка формы обратной связи через EmailJS.
+ * В .env задайте: VITE_EMAILJS_SERVICE_ID, VITE_EMAILJS_TEMPLATE_ID, VITE_EMAILJS_PUBLIC_KEY
+ * В шаблоне EmailJS используйте переменные: {{name}}, {{email}}, {{message}}
+ *
  * @param {{ name: string, email: string, message: string }} data
  * @returns {Promise<{ success: boolean, error?: string }>}
  */
-const FORMSPREE_URL = `https://formspree.io/f/${import.meta.env.VITE_FORMSPREE_FORM_ID || ''}`
+import emailjs from '@emailjs/browser'
 
 export async function submitFeedback(data) {
-  const formId = import.meta.env.VITE_FORMSPREE_FORM_ID
-  if (!formId) {
-    console.error('VITE_FORMSPREE_FORM_ID не задан в .env')
-    return { success: false, error: 'Форма не настроена. Добавьте VITE_FORMSPREE_FORM_ID в .env' }
+  const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID
+  const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID
+  const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+
+  if (!serviceId || !templateId || !publicKey) {
+    console.error('EmailJS: задайте VITE_EMAILJS_SERVICE_ID, VITE_EMAILJS_TEMPLATE_ID, VITE_EMAILJS_PUBLIC_KEY в .env')
+    return { success: false, error: 'Форма не настроена. Проверьте настройки EmailJS в .env' }
   }
 
   try {
-    const res = await fetch(FORMSPREE_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    })
-
-    if (!res.ok) {
-      const text = await res.text()
-      return { success: false, error: 'Не удалось отправить. Попробуйте позже.' }
-    }
-
+    await emailjs.send(
+      serviceId,
+      templateId,
+      {
+        name: data.name,
+        email: data.email,
+        message: data.message,
+      },
+      { publicKey }
+    )
     return { success: true }
-  } catch (e) {
-    console.error('Submit feedback error:', e)
-    return { success: false, error: 'Ошибка сети. Проверьте интернет и попробуйте снова.' }
+  } catch (err) {
+    console.error('EmailJS error:', err)
+    return {
+      success: false,
+      error: err?.text ?? err?.message ?? 'Не удалось отправить. Попробуйте позже.',
+    }
   }
 }
