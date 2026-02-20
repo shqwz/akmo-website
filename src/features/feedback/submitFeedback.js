@@ -1,9 +1,9 @@
 /**
  * Отправка формы обратной связи через EmailJS.
  * В .env задайте: VITE_EMAILJS_SERVICE_ID, VITE_EMAILJS_TEMPLATE_ID, VITE_EMAILJS_PUBLIC_KEY
- * В шаблоне EmailJS используйте переменные: {{name}}, {{email}}, {{message}}
+ * В шаблоне EmailJS используйте переменные: {{name}}, {{email}}, {{phone}}, {{message}}
  *
- * @param {{ name: string, email: string, message: string }} data
+ * @param {{ name: string, email: string, phone?: string, message: string }} data
  * @returns {Promise<{ success: boolean, error?: string }>}
  */
 import emailjs from '@emailjs/browser'
@@ -25,6 +25,7 @@ export async function submitFeedback(data) {
       {
         name: data.name,
         email: data.email,
+        phone: data.phone ?? '',
         message: data.message,
       },
       { publicKey }

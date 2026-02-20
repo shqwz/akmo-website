@@ -17,7 +17,7 @@ export default function FeedbackForm() {
     reset,
   } = useForm({
     resolver: zodResolver(feedbackSchema),
-    defaultValues: { name: '', email: '', message: '' },
+    defaultValues: { name: '', email: '', phone: '', message: '' },
   })
 
   const onSubmit = async (data) => {
@@ -47,6 +47,7 @@ export default function FeedbackForm() {
       <Input
         label="Имя"
         error={errors.name?.message}
+        placeholder="Дмитрий"
         {...register('name')}
         autoComplete="name"
       />
@@ -54,8 +55,17 @@ export default function FeedbackForm() {
         label="Email"
         type="email"
         error={errors.email?.message}
+        placeholder="dmitry@mail.ru"
         {...register('email')}
         autoComplete="email"
+      />
+      <Input
+        label="Телефон"
+        type="tel"
+        error={errors.phone?.message}
+        placeholder="+7 (999) 123-45-67"
+        {...register('phone')}
+        autoComplete="tel"
       />
       <div className={styles.wrapper}>
         <label htmlFor="feedback-message" className={styles.label}>Сообщение</label>
@@ -63,7 +73,7 @@ export default function FeedbackForm() {
           id="feedback-message"
           className={`${styles.textarea} ${errors.message ? styles.textareaError : ''}`}
           rows={4}
-          placeholder="Ваше сообщение..."
+          placeholder="Хотел бы уточнить условия поставки жалюзийных дверок..."
           {...register('message')}
         />
         {errors.message && (

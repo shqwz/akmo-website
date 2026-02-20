@@ -3,6 +3,7 @@ import Hero from '@/widgets/Hero/Hero'
 import Products from '@/widgets/Products/Products'
 import DocumentsSection from '@/widgets/DocumentsSection/DocumentsSection'
 import About from '@/widgets/About/About'
+import ReviewsSection from '@/widgets/ReviewsSection/ReviewsSection'
 import FeedbackSection from '@/widgets/FeedbackSection/FeedbackSection'
 import Footer from '@/widgets/Footer/Footer'
 
@@ -16,6 +17,7 @@ export default function Home() {
         <Products />
         <DocumentsSection />
         <About />
+        <ReviewsSection />
         <FeedbackSection />
       </main>
       <Footer />

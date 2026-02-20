@@ -6,6 +6,7 @@ const NAV_LINKS = [
   { id: '', label: 'Главная' },
   { id: 'products', label: 'Продукция' },
   { id: 'about', label: 'О компании' },
+  { id: 'reviews', label: 'Отзывы' },
   { id: 'feedback', label: 'Обратная связь' },
 ]
 

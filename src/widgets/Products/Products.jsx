@@ -110,15 +110,21 @@ export default function Products() {
           Изготавливаем мебель и изделия из дерева на заказ. Каждое изделие — индивидуально.
         </motion.p>
 
-        <motion.h3 className={styles.subheading} variants={cardVariants}>Наша основная продукция</motion.h3>
-        <ul className={styles.grid}>
-          {mainProducts.map(renderCard)}
-        </ul>
+        <div className={styles.blockMain}>
+          <motion.h3 className={`${styles.subheading} ${styles.subheadingMain}`} variants={cardVariants}>
+            Основная продукция
+          </motion.h3>
+          <ul className={`${styles.grid} ${styles.gridMain}`}>
+            {mainProducts.map(renderCard)}
+          </ul>
+        </div>
 
-        <motion.h3 className={styles.subheading} variants={cardVariants}>Также изготавливаем</motion.h3>
-        <ul className={styles.grid}>
-          {otherProducts.map(renderCard)}
-        </ul>
+        <div className={styles.blockOther}>
+          <motion.h3 className={styles.subheading} variants={cardVariants}>Также изготавливаем</motion.h3>
+          <ul className={styles.grid}>
+            {otherProducts.map(renderCard)}
+          </ul>
+        </div>
       </div>
       <ProductModal
         product={selectedProduct}
