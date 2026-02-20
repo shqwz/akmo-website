@@ -24,6 +24,17 @@
   font-size: 1.05rem;
 }
 
+.subheading {
+  font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 2.5rem 0 1rem;
+}
+
+.subheading:first-of-type {
+  margin-top: 0;
+}
+
 .grid {
   list-style: none;
   margin: 0;

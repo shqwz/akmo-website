@@ -32,8 +32,8 @@ export default function Hero() {
         animate="visible"
       >
         <motion.h1 className={styles.title} variants={itemVariants}>Добро пожаловать</motion.h1>
-        <motion.p className={styles.subtitle} variants={itemVariants}>
-          Мы создаём изделия из дерева с душой и заботой. Мебель, столярные изделия и декор для вашего дома.
+        <motion.p className={styles.tagline} variants={itemVariants}>
+          AKMO — это ведущая компания по производству жалюзийных дверок
         </motion.p>
         <motion.div variants={itemVariants}>
           <Button onClick={() => scrollTo('products')}>Узнать больше</Button>

@@ -57,6 +57,43 @@ export default function Products() {
     }
   }
 
+  const mainProducts = products.filter((p) => p.priceTable)
+  const otherProducts = products.filter((p) => !p.priceTable)
+
+  const renderCard = (product) => (
+    <motion.li key={product.id} variants={cardVariants}>
+      <div
+        className={styles.cardWrap}
+        onClick={() => handleCardClick(product)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault()
+            handleCardClick(product)
+          }
+        }}
+        role="button"
+        tabIndex={0}
+      >
+        <Card className={styles.card}>
+          <div className={styles.imageWrap}>
+            <ProductImage
+              src={product.image}
+              alt={product.name}
+              loading="lazy"
+              width={400}
+              height={280}
+            />
+          </div>
+          <div className={styles.cardBody}>
+            <h3 className={styles.cardTitle}>{product.name}</h3>
+            <p className={styles.cardDesc}>{product.description}</p>
+            <span className={styles.more}>Подробнее и цена →</span>
+          </div>
+        </Card>
+      </div>
+    </motion.li>
+  )
+
   return (
     <motion.section
       id="products"
@@ -72,40 +109,15 @@ export default function Products() {
         <motion.p className={styles.lead} variants={cardVariants}>
           Изготавливаем мебель и изделия из дерева на заказ. Каждое изделие — индивидуально.
         </motion.p>
+
+        <motion.h3 className={styles.subheading} variants={cardVariants}>Наша основная продукция</motion.h3>
         <ul className={styles.grid}>
-          {products.map((product) => (
-            <motion.li key={product.id} variants={cardVariants}>
-              <div
-                className={styles.cardWrap}
-                onClick={() => handleCardClick(product)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault()
-                    handleCardClick(product)
-                  }
-                }}
-                role="button"
-                tabIndex={0}
-              >
-                <Card className={styles.card}>
-                <div className={styles.imageWrap}>
-                  <ProductImage
-                    src={product.image}
-                    alt={product.name}
-                    loading="lazy"
-                    width={400}
-                    height={280}
-                  />
-                </div>
-                <div className={styles.cardBody}>
-                  <h3 className={styles.cardTitle}>{product.name}</h3>
-                  <p className={styles.cardDesc}>{product.description}</p>
-                  <span className={styles.more}>Подробнее и цена →</span>
-                </div>
-              </Card>
-              </div>
-            </motion.li>
-          ))}
+          {mainProducts.map(renderCard)}
+        </ul>
+
+        <motion.h3 className={styles.subheading} variants={cardVariants}>Также изготавливаем</motion.h3>
+        <ul className={styles.grid}>
+          {otherProducts.map(renderCard)}
         </ul>
       </div>
       <ProductModal
